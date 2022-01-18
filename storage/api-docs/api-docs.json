@@ -1,0 +1,299 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Example API",
+        "contact": {
+            "name": "Krisna Cipta Raksa",
+            "email": "kciptaraksa@gmail.com"
+        },
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Register"
+                ],
+                "summary": "Register User",
+                "operationId": "register",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "name": "Krisna Cipta Raksa",
+                                    "email": "admin@sera.com",
+                                    "password": "new_password"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Respond if request success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "result": {
+                                        "summary": "Respond if request success",
+                                        "value": {
+                                            "status": "success",
+                                            "message": "User created successfully",
+                                            "data": ""
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Respond if request failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "result_if_email_already_registered": {
+                                        "summary": "Respond if request failed because email already registered",
+                                        "value": {
+                                            "status": "error",
+                                            "message": "Email already registered",
+                                            "data": ""
+                                        }
+                                    },
+                                    "result_if_any_mandatory_field_is_empty": {
+                                        "summary": "Respond if request failed because any mandatory field is empty",
+                                        "value": {
+                                            "status": "error",
+                                            "message": "Field required cannot be empty",
+                                            "data": ""
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Login"
+                ],
+                "summary": "Login request to the API",
+                "operationId": "login",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "email": "kciptaraksa@gmail.com",
+                                    "password": "qwerty"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully logged in",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "result": {
+                                        "summary": "An result object while request is success",
+                                        "value": {
+                                            "status": "success",
+                                            "message": "Successfully logged in",
+                                            "data": {
+                                                "access_token": "token generated from api",
+                                                "token_type": "bearer",
+                                                "expires_in": 3600
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error show while any field required is empty",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "result": {
+                                        "summary": "An result object while any field required is empty",
+                                        "value": {
+                                            "status": "error",
+                                            "message": "Field required cannot be empty",
+                                            "data": ""
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Error show while login attempt is failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "result": {
+                                        "summary": "An result object while login attempt is failed",
+                                        "value": {
+                                            "status": "error",
+                                            "message": "Unauthorized",
+                                            "data": ""
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/logincheck": {
+            "post": {
+                "tags": [
+                    "Check Login Status"
+                ],
+                "summary": "Check login status user by token",
+                "operationId": "logincheck",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "result_if_user_loggedin": {
+                                        "summary": "Response while user is still logged in",
+                                        "value": {
+                                            "status": "success",
+                                            "message": "User is logged in",
+                                            "data": {
+                                                "is_logged_in": "true"
+                                            }
+                                        }
+                                    },
+                                    "result_if_user_not_loggedin": {
+                                        "summary": "Response while user was not logged in",
+                                        "value": {
+                                            "status": "error",
+                                            "message": "User is not logged in",
+                                            "data": {
+                                                "is_logged_in": "false"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Logout"
+                ],
+                "summary": "Logout request from the API",
+                "operationId": "logout",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "result_if_user_loggedout": {
+                                        "summary": "Response while user was logged out",
+                                        "value": {
+                                            "status": "success",
+                                            "message": "Successfully logged out",
+                                            "data": ""
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Response while user is not logged in",
+                        "content": {
+                            "text/html": {
+                                "schema": {
+                                    "example": "Unauthorized."
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "apiAuth": {
+                "type": "http",
+                "description": "Login with email and password to get authentication token",
+                "name": "apiAuth",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
