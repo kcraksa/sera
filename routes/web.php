@@ -14,11 +14,7 @@
 */
 
 use App\Models\Customers;
-
-$router->get('/', function () use ($router) {
-    // return $router->app->version();
-    return Customers::all();
-});
+use Firebase\FirebaseLib;
 
 $router->group(['prefix' => 'api'], function () use ($router)
 {
@@ -28,5 +24,32 @@ $router->group(['prefix' => 'api'], function () use ($router)
 
     $router->group(['middleware' => 'auth'], function() use ($router) {
         $router->post('/logout', 'AuthController@logout');
+
+        // articles
+
+        $router->get('/article', 'ArticleController@index');
+        $router->post('/article/store', 'ArticleController@store');
+        $router->get('/article/{id}/show', 'ArticleController@show');
+        $router->post('/article/{id}/update', 'ArticleController@update');
+        $router->post('/article/{id}/delete', 'ArticleController@delete');
+
+        // end of articles
+
+        // orders
+
+        $router->get('/order', 'OrderController@index');
+        $router->post('/order/store', 'OrderController@store');
+        $router->get('/order/{id}/show', 'OrderController@show');
+        $router->post('/order/{id}/update', 'OrderController@update');
+        $router->post('/order/{id}/delete', 'OrderController@delete');
+
+        // end of orders
+
     });
+
+    // Other example
+
+    $router->get('/soal_nomor_6_a', 'OtherController@soal_nomor_6_a');
+    $router->get('/soal_nomor_6_b', 'OtherController@soal_nomor_6_b');
+    $router->get('/soal_nomor_7', 'OtherController@soal_nomor_7');
 });

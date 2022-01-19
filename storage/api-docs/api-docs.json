@@ -9,6 +9,476 @@
         "version": "1.0"
     },
     "paths": {
+        "/api/article": {
+            "get": {
+                "tags": [
+                    "Get All Article"
+                ],
+                "summary": "Fetch article data (using MongoDB)",
+                "description": "Fetch all data article.",
+                "operationId": "fetcharticle",
+                "responses": {
+                    "200": {
+                        "description": "Fetch data success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "response_while_fetch_data_article_success": {
+                                        "summary": "Response while fetch data successfully",
+                                        "value": {
+                                            "status": "success",
+                                            "message": "Data fetched successfully.",
+                                            "data": "Article data"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Failed to fetch data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "response_while_fetch_data_article_failed": {
+                                        "summary": "Response while fetch data failed",
+                                        "value": {
+                                            "status": "error",
+                                            "message": "Failed to fetch data",
+                                            "data": ""
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Request without Token",
+                        "content": {
+                            "text/html": {
+                                "schema": {
+                                    "example": "Unauthorized."
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/article/store": {
+            "post": {
+                "tags": [
+                    "Store Article"
+                ],
+                "summary": "Store article data (using MongoDB)",
+                "description": "Store article data.",
+                "operationId": "storearticle",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "category": {
+                                        "type": "string"
+                                    },
+                                    "content": {
+                                        "type": "string"
+                                    },
+                                    "tags": {
+                                        "type": "array",
+                                        "items": {}
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "title": "Title 1",
+                                    "category": "Hukum",
+                                    "content": "Content title 1",
+                                    "tags": [
+                                        "hukum",
+                                        "pidana"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Article created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "response_while_store_data_article_success": {
+                                        "summary": "Response while store data successfully",
+                                        "value": {
+                                            "status": "success",
+                                            "message": "Article created successfully.",
+                                            "data": "Article data inserted"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Failed to store data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "response_while_store_data_article_failed": {
+                                        "summary": "Response while store data failed",
+                                        "value": {
+                                            "status": "error",
+                                            "message": "Article created failed.",
+                                            "data": ""
+                                        }
+                                    },
+                                    "response_while_store_data_article_failed_because_mandatory_field_empty": {
+                                        "summary": "Response while store data failed",
+                                        "value": {
+                                            "status": "error",
+                                            "message": "Mandatory field cannot be empty",
+                                            "data": "Validation Information"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Request without Token",
+                        "content": {
+                            "text/html": {
+                                "schema": {
+                                    "example": "Unauthorized."
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/article/{id}/show": {
+            "get": {
+                "tags": [
+                    "Get Article By ID"
+                ],
+                "summary": "Fetch article data by ID (using MongoDB)",
+                "description": "Fetch article data by ID.",
+                "operationId": "fetcharticlebyid",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Article ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Fetch data success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "response_while_fetch_data_article_byid_success": {
+                                        "summary": "Response while fetch data successfully",
+                                        "value": {
+                                            "status": "success",
+                                            "message": "Data fetched successfully.",
+                                            "data": "Article data"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Failed to fetch data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "response_while_fetch_data_article_byid_failed": {
+                                        "summary": "Response while fetch data failed",
+                                        "value": {
+                                            "status": "error",
+                                            "message": "Failed to fetch data",
+                                            "data": ""
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Request without Token",
+                        "content": {
+                            "text/html": {
+                                "schema": {
+                                    "example": "Unauthorized."
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Failed to fetch data because ID not given",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "response_while_fetch_data_article_byid_failed_because_no_id": {
+                                        "summary": "Response while fetch data failed because ID not given",
+                                        "value": {
+                                            "status": "error",
+                                            "message": "Page Not Found",
+                                            "data": ""
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/article/{ID}/update": {
+            "post": {
+                "tags": [
+                    "Update Article"
+                ],
+                "summary": "Update article data (using MongoDB)",
+                "description": "Update article data.",
+                "operationId": "updatearticle",
+                "parameters": [
+                    {
+                        "name": "ID",
+                        "in": "path",
+                        "description": "Article ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "category": {
+                                        "type": "string"
+                                    },
+                                    "content": {
+                                        "type": "string"
+                                    },
+                                    "tags": {
+                                        "type": "array",
+                                        "items": {}
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "title": "Title 1",
+                                    "category": "Hukum",
+                                    "content": "Content title 1",
+                                    "tags": [
+                                        "hukum",
+                                        "pidana"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Article updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "response_while_update_data_article_success": {
+                                        "summary": "Response while update data successfully",
+                                        "value": {
+                                            "status": "success",
+                                            "message": "Article updated successfully.",
+                                            "data": "Article data inserted"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Failed to update data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "response_while_update_data_article_failed": {
+                                        "summary": "Response while update data failed",
+                                        "value": {
+                                            "status": "error",
+                                            "message": "Article updated failed.",
+                                            "data": ""
+                                        }
+                                    },
+                                    "response_while_update_data_article_failed_because_mandatory_field_empty": {
+                                        "summary": "Response while update data failed",
+                                        "value": {
+                                            "status": "error",
+                                            "message": "Mandatory field cannot be empty",
+                                            "data": "Validation Information"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Request without Token",
+                        "content": {
+                            "text/html": {
+                                "schema": {
+                                    "example": "Unauthorized."
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/article/{ID}/delete": {
+            "post": {
+                "tags": [
+                    "Delete Article"
+                ],
+                "summary": "Delete article data (using MongoDB)",
+                "description": "Delete article data.",
+                "operationId": "deletearticle",
+                "parameters": [
+                    {
+                        "name": "ID",
+                        "in": "path",
+                        "description": "Article ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Article deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "response_while_delete_data_article_success": {
+                                        "summary": "Response while delete data successfully",
+                                        "value": {
+                                            "status": "success",
+                                            "message": "Article deleted successfully.",
+                                            "data": ""
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Failed to delete data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "response_while_delete_data_article_failed": {
+                                        "summary": "Response while delete data failed",
+                                        "value": {
+                                            "status": "error",
+                                            "message": "Delete article failed.",
+                                            "data": ""
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Request without Token",
+                        "content": {
+                            "text/html": {
+                                "schema": {
+                                    "example": "Unauthorized."
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
         "/api/register": {
             "post": {
                 "tags": [
@@ -281,6 +751,502 @@
                         "apiAuth": []
                     }
                 ]
+            }
+        },
+        "/api/order": {
+            "get": {
+                "tags": [
+                    "Get All Order"
+                ],
+                "summary": "Fetch order data (using Firebase Realtime Database)",
+                "description": "Fetch all data order.",
+                "operationId": "fetchorder",
+                "responses": {
+                    "200": {
+                        "description": "Fetch data success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "response_while_fetch_data_order_success": {
+                                        "summary": "Response while fetch data successfully",
+                                        "value": {
+                                            "status": "success",
+                                            "message": "Data fetched successfully.",
+                                            "data": "Order data"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Failed to fetch data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "response_while_fetch_data_order_failed": {
+                                        "summary": "Response while fetch data failed",
+                                        "value": {
+                                            "status": "error",
+                                            "message": "Failed to fetch data",
+                                            "data": ""
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Request without Token",
+                        "content": {
+                            "text/html": {
+                                "schema": {
+                                    "example": "Unauthorized."
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/order/store": {
+            "post": {
+                "tags": [
+                    "Store Order"
+                ],
+                "summary": "Store order data (using Firebase Realtime Database)",
+                "description": "Store order data.",
+                "operationId": "storeorder",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "customer": {
+                                        "type": "string"
+                                    },
+                                    "product": {
+                                        "type": "string"
+                                    },
+                                    "qty": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "customer": "Amir Khan",
+                                    "product": "Bardi Smart Lamp",
+                                    "qty": 1
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Order created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "response_while_store_data_Order_success": {
+                                        "summary": "Response while store data successfully",
+                                        "value": {
+                                            "status": "success",
+                                            "message": "Order created successfully.",
+                                            "data": "Order data inserted"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Failed to store data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "response_while_store_data_order_failed": {
+                                        "summary": "Response while store data failed",
+                                        "value": {
+                                            "status": "error",
+                                            "message": "Order created failed.",
+                                            "data": ""
+                                        }
+                                    },
+                                    "response_while_store_data_order_failed_because_mandatory_field_empty": {
+                                        "summary": "Response while store data failed",
+                                        "value": {
+                                            "status": "error",
+                                            "message": "Mandatory field cannot be empty",
+                                            "data": "Validation Information"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Request without Token",
+                        "content": {
+                            "text/html": {
+                                "schema": {
+                                    "example": "Unauthorized."
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/order/{id}/show": {
+            "get": {
+                "tags": [
+                    "Get Order By ID"
+                ],
+                "summary": "Fetch order data by ID (using Firebase Realtime Database)",
+                "description": "Fetch order data by ID.",
+                "operationId": "fetchOrderbyid",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Order ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Fetch data success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "response_while_fetch_data_order_byid_success": {
+                                        "summary": "Response while fetch data successfully",
+                                        "value": {
+                                            "status": "success",
+                                            "message": "Data fetched successfully.",
+                                            "data": "Order data"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Failed to fetch data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "response_while_fetch_data_order_byid_failed": {
+                                        "summary": "Response while fetch data failed",
+                                        "value": {
+                                            "status": "error",
+                                            "message": "Failed to fetch data",
+                                            "data": ""
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Request without Token",
+                        "content": {
+                            "text/html": {
+                                "schema": {
+                                    "example": "Unauthorized."
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Failed to fetch data because ID not given",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "response_while_fetch_data_order_byid_failed_because_no_id": {
+                                        "summary": "Response while fetch data failed because ID not given",
+                                        "value": {
+                                            "status": "error",
+                                            "message": "Page Not Found",
+                                            "data": ""
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/order/{ID}/update": {
+            "post": {
+                "tags": [
+                    "Update Order"
+                ],
+                "summary": "Update order data (using Firebase Realtime Database)",
+                "description": "Update order data.",
+                "operationId": "updateorder",
+                "parameters": [
+                    {
+                        "name": "ID",
+                        "in": "path",
+                        "description": "Order ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "customer": {
+                                        "type": "string"
+                                    },
+                                    "product": {
+                                        "type": "string"
+                                    },
+                                    "qty": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "customer": "Amir Khan",
+                                    "product": "Bardi Smart Lamp",
+                                    "qty": 1
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Order updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "response_while_update_data_Order_success": {
+                                        "summary": "Response while update data successfully",
+                                        "value": {
+                                            "status": "success",
+                                            "message": "Order updated successfully.",
+                                            "data": "Order data inserted"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Failed to update data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "response_while_update_data_Order_failed": {
+                                        "summary": "Response while update data failed",
+                                        "value": {
+                                            "status": "error",
+                                            "message": "Order updated failed.",
+                                            "data": ""
+                                        }
+                                    },
+                                    "response_while_update_data_Order_failed_because_mandatory_field_empty": {
+                                        "summary": "Response while update data failed",
+                                        "value": {
+                                            "status": "error",
+                                            "message": "Mandatory field cannot be empty",
+                                            "data": "Validation Information"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Request without Token",
+                        "content": {
+                            "text/html": {
+                                "schema": {
+                                    "example": "Unauthorized."
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/order/{ID}/delete": {
+            "post": {
+                "tags": [
+                    "Delete Order"
+                ],
+                "summary": "Delete order data (using Firebase Realtime Database)",
+                "description": "Delete order data.",
+                "operationId": "deleteOrder",
+                "parameters": [
+                    {
+                        "name": "ID",
+                        "in": "path",
+                        "description": "Order ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Order deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "response_while_delete_data_Order_success": {
+                                        "summary": "Response while delete data successfully",
+                                        "value": {
+                                            "status": "success",
+                                            "message": "Order deleted successfully.",
+                                            "data": ""
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Failed to delete data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "response_while_delete_data_order_failed": {
+                                        "summary": "Response while delete data failed",
+                                        "value": {
+                                            "status": "error",
+                                            "message": "Delete order failed.",
+                                            "data": ""
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Request without Token",
+                        "content": {
+                            "text/html": {
+                                "schema": {
+                                    "example": "Unauthorized."
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/soal_nomor_6_a": {
+            "get": {
+                "tags": [
+                    "Soal Nomor 6A"
+                ],
+                "description": "Integrasi API dengan handling selain response success",
+                "operationId": "c3fcf5655a74d3fe3b58e263f7309457",
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                }
+            }
+        },
+        "/api/soal_nomor_6b": {
+            "get": {
+                "tags": [
+                    "Soal Nomor 6B"
+                ],
+                "description": "Integrasi API dengan handling selain response success",
+                "operationId": "e7c47b2fced67050286215bfb78cdba6",
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                }
+            }
+        },
+        "/api/soal_nomor_7": {
+            "get": {
+                "tags": [
+                    "Soal Nomor 7"
+                ],
+                "description": "Filter Object",
+                "operationId": "b0a8121c178a520134f72d1806eab189",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
             }
         }
     },

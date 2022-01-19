@@ -23,6 +23,15 @@ class Handler extends ExceptionHandler
         ValidationException::class,
     ];
 
+    // public function register()
+    // {
+    //     $this->reportable(function (Throwable $e) {
+    //         if (app()->bound('sentry')) {
+    //             app('sentry')->captureException($e);
+    //         }
+    //     });
+    // }
+
     /**
      * Report or log an exception.
      *
@@ -33,10 +42,21 @@ class Handler extends ExceptionHandler
      *
      * @throws \Exception
      */
+    // public function report(Throwable $exception)
+    // {
+    //     parent::report($exception);
+    // }
+
     public function report(Throwable $exception)
     {
+        if (app()->bound('sentry') && $this->shouldReport($exception)) {
+            app('sentry')->captureException($exception);
+        }
+
         parent::report($exception);
     }
+
+
 
     /**
      * Render an exception into an HTTP response.
@@ -49,6 +69,23 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        // start custom code
+        // if($exception->getStatusCode() == 404){
+        //     return response()->json([
+        //         'status' => "error",
+        //         'message' => "Page Not Found",
+        //         'data' => ""
+        //     ], 404);
+        // }
+        // if($exception->getStatusCode() == 500){
+        //     return response()->json([
+        //         'status' => "error",
+        //         'message' => "Internal Server Error",
+        //         'data' => ""
+        //     ], 500);
+        // }
+        // end custom code
+
         return parent::render($request, $exception);
     }
 }

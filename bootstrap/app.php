@@ -23,6 +23,7 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
+$app->register(Jenssegers\Mongodb\MongodbServiceProvider::class);
 $app->withFacades();
 
 $app->withEloquent();
@@ -97,7 +98,7 @@ $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 $app->register(\SwaggerLume\ServiceProvider::class);
-$app->register(Jenssegers\Mongodb\MongodbServiceProvider::class);
+$app->register('Sentry\Laravel\ServiceProvider');
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
